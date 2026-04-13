@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>카드뉴스 - WD02</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f3f5f8;
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      color: #111827;
+    }
+
+    /* 💡 쉐어포인트 강제 크기 적용 (650px) */
+    .card-news {
+      width: 100% !important;
+      max-width: 650px !important; 
+      margin: 0 auto !important;
+      position: relative;
+    }
+
+    .card-news input[type="radio"] {
+      display: none;
+    }
+
+    .carousel {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.12),
+        0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    .carousel__viewport {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .carousel__track {
+      display: flex;
+      align-items: flex-start;
+      /* 부드러운 텐션의 화면 전환 효과 */
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .slide {
+      position: relative;
+      flex: 0 0 100%;
+      background: #fff;
+    }
+
+    .slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .page-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 2;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.72);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      backdrop-filter: blur(6px);
+    }
+
+    .nav {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(17, 24, 39, 0.72);
+      color: #fff;
+      cursor: pointer;
+      pointer-events: auto;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(6px);
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(17, 24, 39, 0.88);
+    }
+
+    .nav-btn.prev { left: 14px; }
+    .nav-btn.next { right: 14px; }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 0 0;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    /* 라디오 버튼 체크 상태에 따른 슬라이드 이동 */
+    #slide-1:checked ~ .carousel .carousel__track { transform: translateX(0%); }
+    #slide-2:checked ~ .carousel .carousel__track { transform: translateX(-100%); }
+    #slide-3:checked ~ .carousel .carousel__track { transform: translateX(-200%); }
+    #slide-4:checked ~ .carousel .carousel__track { transform: translateX(-300%); }
+    #slide-5:checked ~ .carousel .carousel__track { transform: translateX(-400%); }
+    #slide-6:checked ~ .carousel .carousel__track { transform: translateX(-500%); }
+    #slide-7:checked ~ .carousel .carousel__track { transform: translateX(-600%); }
+
+    /* 라디오 버튼 체크 상태에 따른 Dot 색상 변경 */
+    #slide-1:checked ~ .dots label[for="slide-1"],
+    #slide-2:checked ~ .dots label[for="slide-2"],
+    #slide-3:checked ~ .dots label[for="slide-3"],
+    #slide-4:checked ~ .dots label[for="slide-4"],
+    #slide-5:checked ~ .dots label[for="slide-5"],
+    #slide-6:checked ~ .dots label[for="slide-6"],
+    #slide-7:checked ~ .dots label[for="slide-7"] {
+      width: 24px;
+      background: #111827;
+    }
+
+  </style>
+</head>
+<body>
+  <section class="card-news">
+    <input type="radio" name="slider" id="slide-1" checked>
+    <input type="radio" name="slider" id="slide-2">
+    <input type="radio" name="slider" id="slide-3">
+    <input type="radio" name="slider" id="slide-4">
+    <input type="radio" name="slider" id="slide-5">
+    <input type="radio" name="slider" id="slide-6">
+    <input type="radio" name="slider" id="slide-7">
+
+    <div class="carousel">
+      <div class="carousel__viewport">
+        <div class="carousel__track">
+          <article class="slide">
+            <span class="page-badge">1 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_00.jpg" alt="카드뉴스 1" />
+            <div class="nav">
+              <label for="slide-2" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+
+          <article class="slide">
+            <span class="page-badge">2 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_01.jpg" alt="카드뉴스 2" />
+            <div class="nav">
+              <label for="slide-1" class="nav-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </label>
+              <label for="slide-3" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+
+          <article class="slide">
+            <span class="page-badge">3 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_02.jpg" alt="카드뉴스 3" />
+            <div class="nav">
+              <label for="slide-2" class="nav-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </label>
+              <label for="slide-4" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+
+          <article class="slide">
+            <span class="page-badge">4 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_03.jpg" alt="카드뉴스 4" />
+            <div class="nav">
+              <label for="slide-3" class="nav-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </label>
+              <label for="slide-5" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+
+          <article class="slide">
+            <span class="page-badge">5 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_04.jpg" alt="카드뉴스 5" />
+            <div class="nav">
+              <label for="slide-4" class="nav-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </label>
+              <label for="slide-6" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+
+          <article class="slide">
+            <span class="page-badge">6 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_05.jpg" alt="카드뉴스 6" />
+            <div class="nav">
+              <label for="slide-5" class="nav-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </label>
+              <label for="slide-7" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+
+          <article class="slide">
+            <span class="page-badge">7 / 7</span>
+            <img src="https://raw.githubusercontent.com/anguk-staion/wd02/main/WP.02_06.jpg" alt="카드뉴스 7" />
+            <div class="nav">
+              <label for="slide-6" class="nav-btn prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </label>
+              <label for="slide-1" class="nav-btn next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </label>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots">
+      <label for="slide-1" class="dot"></label>
+      <label for="slide-2" class="dot"></label>
+      <label for="slide-3" class="dot"></label>
+      <label for="slide-4" class="dot"></label>
+      <label for="slide-5" class="dot"></label>
+      <label for="slide-6" class="dot"></label>
+      <label for="slide-7" class="dot"></label>
+    </div>
+  </section>
+</body>
+</html>
